@@ -180,7 +180,7 @@ namespace Laba_6
             double sum = 0;
             double tax;
 
-            Console.WriteLine("Работа со статическими объектами");
+            Console.WriteLine("Работа со статическими объектами111");
             shoes pr1 = new shoes();
             pr1.read();
             shop sh1 = new shop(1, 0, 0, pr1);
