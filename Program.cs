@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Laba_6
 {
    
-    class shoes
+    struct shoes
     {
         
         private string name;
@@ -14,13 +14,7 @@ namespace Laba_6
         private string art;
         private double price;
 
-       public shoes ()
-        {
-            this.name = "Имя";
-            this.type = "Вид";
-            this.art = "Артикул";
-            this.price = 0;
-        }
+
         public shoes (string name, string type, string art, double price)
         {
             this.name = name;
@@ -53,7 +47,6 @@ namespace Laba_6
 
         public void read ()
         {
-            Console.WriteLine("Хуй");
             Console.WriteLine("Введите название бренда");
             name = Console.ReadLine();
             Console.WriteLine("Введите вид обуви");
@@ -79,24 +72,20 @@ namespace Laba_6
         }
     }
 
-    class shop
+    struct shop
     {
         const double stavka = 0.24;
         private int kol;
         private double profit;
         private int sale_count;
-        private shoes [] para = new shoes [100];
-        public shop ()
-        {
-            this.kol = 0;
-            this.profit = 0;
-            this.sale_count = 0;
-        }
+        private shoes [] para;
+
         public shop (int kol, double profit, int sale_count, shoes para)
         {
             this.kol = kol;
             this.profit = profit;
             this.sale_count = sale_count;
+            this.para = new shoes[10];
             this.para[0] = para;
         }
         public shop (int kol, double profit, int sale_count, shoes [] para)
@@ -104,6 +93,7 @@ namespace Laba_6
             this.kol = kol;
             this.profit = profit;
             this.sale_count = sale_count;
+            this.para = new shoes[10];
             for (int i = 0; i < kol; i++)
                 this.para[i] = para[i];
         }
@@ -180,7 +170,7 @@ namespace Laba_6
             double sum = 0;
             double tax;
 
-            Console.WriteLine("Работа со статическими объектами111");
+            Console.WriteLine("Работа со статическими объектами");
             shoes pr1 = new shoes();
             pr1.read();
             shop sh1 = new shop(1, 0, 0, pr1);
