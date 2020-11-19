@@ -53,7 +53,6 @@ namespace Laba_6
 
         public void read ()
         {
-            Console.WriteLine("Хуй");
             Console.WriteLine("Введите название бренда");
             name = Console.ReadLine();
             Console.WriteLine("Введите вид обуви");
