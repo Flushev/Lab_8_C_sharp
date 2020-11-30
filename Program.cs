@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Collections.Generic;
 
-namespace Laba_6
+namespace Laba_7
 {
    
     class shoes
@@ -80,11 +80,11 @@ namespace Laba_6
 
     class shop
     {
-        const double stavka = 0.24;
         private int kol;
         private double profit;
         private int sale_count;
         private shoes [] para = new shoes [100];
+        private static int stavka = 300;
         public shop ()
         {
             this.kol = 0;
@@ -155,15 +155,11 @@ namespace Laba_6
             Console.WriteLine ("\nВозврат прошел успешно\n");
         }
 
-        public void nalog (out double k)
+        public static void nalog (ref int k)
         {
-            k = this.Profit * stavka;
+            k += stavka;
         }
 
-        public void Nalog (ref double k)
-        {
-            k = this.Profit * stavka;
-        }
 
         public static shop operator++ (shop tmp)
         {
@@ -177,23 +173,22 @@ namespace Laba_6
         static void Main(string[] args)
         {
             double sum = 0;
-            double tax;
+            int tax = 0;
 
             Console.WriteLine("Работа со статическими объектами");
             shoes pr1 = new shoes();
             pr1.read();
             shop sh1 = new shop(1, 0, 0, pr1);
             sh1.display();
+            // Статический метод
+            shop.nalog(ref tax);
+            Console.WriteLine("Налог на обувь: {0}\n", tax);
+
             Console.WriteLine("\nПосле продажи: \n");
             sh1.sale();
-            sh1.nalog(out tax);
-            Console.WriteLine("Налог через Out: {0}", tax);
-            tax = 0;
-            sh1.Nalog(ref tax);
-            Console.WriteLine("Налог через Ref: {0}", tax);
-            sum = pr1.add(sum);
+
             Console.WriteLine("Общая стоимость товаров: {0}\n", sum);
-            sum = pr1.return_sum(sum);
+            sum = pr1.add(sum);
             sh1.display();
             Console.WriteLine("Общая стоимость товаров: {0}\n", sum);
             Console.WriteLine("\nПосле возврата: \n");
@@ -209,6 +204,7 @@ namespace Laba_6
             sh10 = sh1++;
             Console.WriteLine("Постфикс {0}:", sh10.Sale_count);
             Console.WriteLine("Общая стоимость товаров: {0}\n", sum);
+            tax = 0;
             Console.WriteLine("\nРабота с динамическими объектами\n");
             Console.WriteLine ("Введите количество позиций:\n");
             sum = 0;
@@ -219,9 +215,12 @@ namespace Laba_6
                 pr2[i] = new shoes();
                 pr2[i].read();
                 sum = pr2[i].add(sum);
+                // Статический метод
+                shop.nalog(ref tax);
             }
             shop sh2 = new shop(k, 0, 0, pr2);
             sh2.display();
+            Console.WriteLine("Налог на обувь: {0}\n", tax);
             Console.WriteLine("Общая стоимость товаров: {0}\n", sum);
             Console.WriteLine("\nПосле продажи: \n");
             sh2.sale();
