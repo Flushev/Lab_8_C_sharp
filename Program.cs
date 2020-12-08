@@ -28,6 +28,14 @@ namespace Laba_7
             this.art = art;
             this.price = price;
         }
+
+        public shoes (double price)
+        {
+            this.name = "Имя";
+            this.type = "Вид";
+            this.art = "Артикул";
+            this.price = price;
+        }
         public string Name
         {
             get { return name; }
@@ -84,7 +92,7 @@ namespace Laba_7
         private double profit;
         private int sale_count;
         private shoes [] para = new shoes [100];
-        private static int stavka = 300;
+        private static int stavka;
         public shop ()
         {
             this.kol = 0;
@@ -157,7 +165,9 @@ namespace Laba_7
 
         public static void nalog (ref int k)
         {
-            k += stavka;
+            stavka = 0;
+            stavka += 300;
+            k = stavka;
         }
 
 
@@ -175,11 +185,24 @@ namespace Laba_7
             double sum = 0;
             int tax = 0;
 
+            //Массив через конструтор с одним параметром
+            shoes[] s = new shoes [2];
+            Console.WriteLine("Инициализация массива через коутркутор с 1 параметром");
+            for (int i = 0; i < 2; i++)
+            {
+                s[i] = new shoes(i);
+                s[i].display();
+            }
             Console.WriteLine("Работа со статическими объектами");
+            
+            // Конструктор без параметров
             shoes pr1 = new shoes();
             pr1.read();
+
+            // Конструктор со всеми параметрами
             shop sh1 = new shop(1, 0, 0, pr1);
             sh1.display();
+
             // Статический метод
             shop.nalog(ref tax);
             Console.WriteLine("Налог на обувь: {0}\n", tax);
