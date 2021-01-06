@@ -13,6 +13,7 @@ namespace Laba_7
         private string type;
         private string art;
         private double price;
+        static Exception e;
 
        public shoes ()
         {
@@ -61,14 +62,41 @@ namespace Laba_7
 
         public void read ()
         {
+            int f = 0;
+            double temp;
             Console.WriteLine("Введите название бренда");
             name = Console.ReadLine();
             Console.WriteLine("Введите вид обуви");
             type = Console.ReadLine();
             Console.WriteLine("Введите артикул");
             art = Console.ReadLine();
-            Console.WriteLine("Введите стоимость");
-            price = Int32.Parse(Console.ReadLine());
+            // Обработка исключений
+            while (f == 0)
+            {
+                Console.WriteLine("Введите стоимость");
+                temp = Int32.Parse(Console.ReadLine());
+                try
+                {
+                    if (temp > 0)
+                    {
+                        f = 1;
+                        price = temp;
+                    }
+                    else
+                    {
+                        throw e = new Exception ("Ошибка ввода! Стоимость не может быть отрицательной!");
+                        f = 0;
+                    }
+                }
+                catch (Exception e)
+                {
+                    string s;
+                    s = e.Message;
+                    Console.WriteLine(s);
+                    Console.ReadKey();
+
+                }
+            }
         }
         public void display()
         {
