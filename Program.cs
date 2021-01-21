@@ -121,6 +121,10 @@ namespace Laba_7
         private int sale_count;
         private shoes [] para = new shoes [100];
         private static int stavka;
+        private int box;
+        private int k_box;
+        private shoes [,] para_1 = new shoes [10, 10];
+        private shoes[] para_2 = new shoes[10];
         public shop ()
         {
             this.kol = 0;
@@ -141,6 +145,66 @@ namespace Laba_7
             this.sale_count = sale_count;
             for (int i = 0; i < kol; i++)
                 this.para[i] = para[i];
+        }
+        // Конструктор для склада обуви
+        public shop(int box, int k_box, shoes[,] para)
+        {
+            this.kol = box * k_box;
+            this.box = box;
+            this.k_box = k_box;
+            for (int i = 0; i < box; i++) // Количество коробок
+                for (int j = 0; j < k_box; j++) // Количество пар в коробке
+                    this.para_1[i, j] = para[i, j];
+
+        }
+        // Конструктор для одной коробки
+        public shop (int k_box, shoes[] para)
+        {
+            this.kol = k_box;
+            this.k_box = k_box;
+            for (int i = 0; i < k_box; i++) // Количество пар в коробке
+                this.para_2[i] = para[i];
+        }
+
+        public double cost_sklad ()
+        {
+            double cost = 0;
+            for (int i = 0; i < box; i++)
+                for (int j = 0; j < k_box; j++)
+                    cost += para_1[i,j].Price;
+            return cost;
+        }
+
+        public double cost_box ()
+        {
+            double cost = 0;
+            for (int i = 0; i < k_box; i++)
+                cost += para_2[i].Price;
+            return cost;
+
+        }
+
+       public void display_sklad()
+        {
+            Console.WriteLine("Количество коробок на складе {0}", box);
+            Console.WriteLine ("Количество пар в коробке {0}", k_box);
+            Console.WriteLine("Общее количесво пар на складе {0}", kol);
+            Console.WriteLine("Общая стоимость товаров на складе {0}", cost_sklad());
+            for (int i = 0; i < box; i++)
+            {
+                for (int j = 0; j < k_box; j++)
+                    para_1[i,j].display();
+                Console.WriteLine("\n");
+            }
+
+        }
+        public void display_box()
+        {
+            Console.WriteLine("Количество пар в коробке {0}", k_box);
+            Console.WriteLine("Общая стоимость товаров на складе {0}", cost_box());
+            for (int i = 0; i < k_box; i++)
+                para_2[i].display();
+
         }
         public int Kol
         {
@@ -213,6 +277,34 @@ namespace Laba_7
             double sum = 0;
             int tax = 0;
 
+            //Двумерный массив объектов
+            shoes[,] p = new shoes[10, 10];
+            int box = 0;
+            int k_box = 0;
+            Console.WriteLine("Введите количество коробок на складе");
+            box = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите количество пар в коробке");
+            k_box = Convert.ToInt32(Console.ReadLine());
+            for (int i = 0; i < box; i++)
+                for (int j = 0; j < k_box; j++)
+                {
+                    p[i, j] = new shoes();
+                    p[i,j].read();
+                }
+            shop sklad = new shop (box, k_box, p);
+            sklad.display_sklad();
+
+            // Одномерный массив объектов
+            Console.WriteLine("Введите количество пар в коробке");
+            k_box = Convert.ToInt32(Console.ReadLine());
+            shoes[] p1 = new shoes [10];
+            for (int i = 0; i < k_box; i ++)
+            {
+                p1[i] = new shoes();
+                p1[i].read();
+            }
+            shop boxx = new shop(k_box, p1);
+            boxx.display_box();
             //Массив через конструтор с одним параметром
             shoes[] s = new shoes [2];
             Console.WriteLine("Инициализация массива через коутркутор с 1 параметром");
